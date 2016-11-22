@@ -25,14 +25,14 @@ allprojects {
 
 
 
-- 主项目build.gradle中配置Fastroid的依赖。
+- 主项目build.gradle中配置Rectroid的依赖。
 ````Gradle
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-      compile 'com.github.honestwalker:Recttroid:0.1.0'
+      compile 'com.github.honestwalker:Rectroid:0.1.0'
     }
 }
 ````
