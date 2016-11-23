@@ -89,9 +89,6 @@ XView 是一个组件的容器。传统开发来说，从这个布局文件开�
 
 组建对象的写法
 ````
-/**
- *  
- */
 public class SearchComponent extends Component {
 
     private XSearchPage searchPage;
