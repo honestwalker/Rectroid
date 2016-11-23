@@ -8,7 +8,7 @@
     android:paddingBottom="@dimen/margin_s2"
     android:background="#ffffff">
 
-    <com.honestwalker.android.xview.XView
+    <com.honestwalker.android.rectroid.RectView
         android:id="@id/edittext1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +17,7 @@
         android:layout_marginRight="@dimen/margin"
         />
 
-    <com.honestwalker.android.xview.XView
+    <com.honestwalker.android.rectroid.RectView
         android:id="@id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
