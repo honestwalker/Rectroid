@@ -7,7 +7,7 @@ Rectroid是有上海信行软件Android团队开发的Android组件化开发框�
 Rectroid的目标是通过尽可能简单的将页面、视图、控件甚至功能逻辑已特定方式封装达到高可复用性。甚至一般情况下，创建页面，无需建立一个
 Activity类和AndroidManifest中配置Activity，只需要建立一个组件，由它开始，拼装组件直至完成页面。因为在Rectroid中，
 从Activity布局本身可视为一个组件直至它的内容每一块和一个控件都可以是一个组件。
-    
+
 
 
 ## 导入
@@ -85,40 +85,87 @@ XView 是一个组件的容器。传统开发来说，从这个布局文件开�
 
 组建对象的写法
 ````
-public class SearchComponent extends Component {
+public class HelloComponent extends Component {
 
-    private XSearchPage searchPage;
-    
-    public DemoComponent(Context context) {
+    /**
+     * 头像选择组件
+     */
+    private SelectAvatarComponent avatarComponent;
+
+    /**
+     * 测试按钮组件
+     */
+    private ButtonComponent buttonComponent;
+
+    /**
+     * 搜索页面组件
+     */
+    private SearchPageComponent searchPage;
+
+    public HelloComponent(Context context) {
         super(context);
     }
 
-    public DemoComponent(Context context, AttributeSet attrs) {
+    public HelloComponent(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DemoComponent(Context context, AttributeSet attrs, int defStyleAttr) {
+    public HelloComponent(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
-    protected void initComponent() {
-        // 对子组件的初始化
-        searchBar = ComponentUtil.getComponent(this, getContentView(), R.id.searchbar, XSearchBar.class);
-        searchHistory  = ComponentUtil.getComponent(this, getContentView(), R.id.content, SimpleListViewComponent.class);
+    protected void onRegisterRectView() {
+        registerRectView(R.id.component1);   // 注册容器1
+        registerRectView(R.id.component2);   // 注册容器2
+        registerRectView(R.id.component3);   // 注册容器2
     }
 
     @Override
-    protected int contentViewLayout() {
-        return R.layout.xxx;
+    protected void initComponent() {
+        avatarComponent = bind(R.id.component1, SelectAvatarComponent.class);        // 获取组件1  (同时会渲染组件)
+        searchPage      = bind(R.id.component3, SearchPageComponent.class);  // 获取组件2  (同时会渲染组件)
+        buttonComponent = bind(R.id.component2, ButtonComponent.class);      // 获取组件2  (同时会渲染组件)
     }
-    
+
+    /**
+     * 组件布局
+     * @return
+     */
+    @Override
+    protected int contentViewLayout() {
+        return R.layout.component_hello;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        
+        // 组件的一些内容设置
+        buttonComponent.setText("通用下拉刷新listview demo");
+        searchPage.setSearchHint("请输入搜索内容");
+        searchPage.setSearchBtnText("搜索");
+        
+        // 组件控件事件绑定
+        bindEvent(buttonComponent.getButton(), R.id. component2);
+    }
+
+    @OnClick(R.id.component2)
+    public boolean buttonComponentOnClick() {
+        ComponentActivity.startComponent(getActivity(), WebViewDemoComponent.class);
+        return true;
+    }
+
 }
 ````
 
-一个组件继承Component类便可。
+一个组件继承Component类。
+onRegisterRectView 方法注册组件，需要把布局中的组件向当前组件注册。
 initComponent 方法是对子组件的一些初始化，初始化主要是告诉子组件用什么组件去渲染。
 contentViewLayout 方法是此组件加载的布局。
 
+组件的生命周期，同Activity生命周期依次被调用。
+
+bindEvent方法 把一个控件或组件和一个事件绑定，给一个方法添加注解如@OnClick(组件id) ， 绑定事件时bindEvent(buttonComponent.getButton(), 组件id); ，执行相应事件时，就会回调该方法。
 
 编辑中.....
