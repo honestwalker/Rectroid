@@ -123,7 +123,7 @@ public class HelloComponent extends Component {
 
     @Override
     protected void initComponent() {
-        avatarComponent = bind(R.id.component1, SelectAvatarComponent.class);        // 获取组件1  (同时会渲染组件)
+        avatarComponent = bind(R.id.component1, SelectAvatarComponent.class);// 获取组件1  (同时会渲染组件)
         searchPage      = bind(R.id.component3, SearchPageComponent.class);  // 获取组件2  (同时会渲染组件)
         buttonComponent = bind(R.id.component2, ButtonComponent.class);      // 获取组件2  (同时会渲染组件)
     }
