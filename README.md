@@ -52,10 +52,6 @@ Rectroid和传统开发完全兼容，另外也可以继承至ComponentActivity�
           android:theme="@android:style/Theme.NoTitleBar"  
           android:screenOrientation="portrait"                                                                                             android:configChanges="orientation|keyboardHidden|screenSize" 
           android:windowSoftInputMode="adjustResize">
-
-     <!-- 是否开启侵入时标题 enable:开启，disable:关闭 -->
-     <meta-data android:value="enable" android:name="statusbar-translucent" />
-
      <!-- 第一个加载的组件 -->
      <meta-data android:value="com.honestwalker.android.modules.commons.components.WelcomeComponent" android:name="main-component" />
 
